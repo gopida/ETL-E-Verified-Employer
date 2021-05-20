@@ -38,6 +38,14 @@ class EverifyCrawlSpider(scrapy.Spider):
         footer = content.find('footer').text
         left_string, right_string = 'of ', 'entries'
         self.total_records_count = int(footer[footer.index(left_string) + len(left_string) : footer.index(right_string)])
+        table = content.find('table')
+
+        # Extracting the table headers and defining it as keys
+        thead = table.find('thead')
+        if thead:
+            for i, th in enumerate(thead.find_all('th')):
+                self.header[i] = th.text.strip().lower().replace(' ', '_')
+
         yield scrapy.Request(url=response.url, callback=self.scrap_page)
 
 
@@ -60,19 +68,13 @@ class EverifyCrawlSpider(scrapy.Spider):
         
         table = content.find('table')
 
-        # Extracting the table headers and defining it as keys
-        thead = table.find('thead')
-        if thead:
-            for i, th in enumerate(thead.find_all('th')):
-                self.header[i] = th.text.strip().lower().replace(' ', '_')
-
         # Extracting the table rows/content/data
         data = []
         tbody = table.find('tbody')
         rows = tbody.find_all('tr')
         for row in rows:
             cells = row.find_all("td")
-            if thead:
+            if self.header:
                 items = {}
                 for index in self.header:
                     items[self.header[index]] = cells[index].text.strip()
