@@ -130,4 +130,7 @@ dmypy.json
 
 # files
 data/raw/*
+!data/raw/.gitkeep
 data/transformed/*
+!data/transformed/.gitkeep
+
