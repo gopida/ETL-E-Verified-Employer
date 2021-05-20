@@ -1,7 +1,10 @@
 import scrapy
-from bs4 import BeautifulSoup
+import os
+from bs4 import BeautifulSoup, Tag
 import json
+from scrapy.utils.project import get_project_settings
 
+settings=get_project_settings()
 
 class EverifyCrawlSpider(scrapy.Spider):
     name = 'everify_crawl'
@@ -50,18 +53,19 @@ class EverifyCrawlSpider(scrapy.Spider):
 
 
     def scrap_page(self, response):
+
         if response.status == 200:
             content = BeautifulSoup(response.body, 'html.parser')
+            table = content.find('table')
+            self.save_extracted_data_to_file(self.page_count, table)
             data = self.process_content(content)
             # print(json.dumps(data, indent=4))
-            ### save data ###
 
             self.scraped_records_count += len(data)
             print(self.scraped_records_count, self.total_records_count)
             if self.scraped_records_count < self.total_records_count:
                 self.page_count += 1
                 yield scrapy.Request(url=self.pagination_url + str(self.page_count), callback=self.scrap_page)
-
 
 
     def process_content(self, content):
@@ -85,5 +89,17 @@ class EverifyCrawlSpider(scrapy.Spider):
 
             data.append(items)
         return data
+
+
+    def save_extracted_data_to_file(self, page_number, tag):
+        
+        file_name = settings.get('FILE_PATH_TO_EXTRACTED_FILES') \
+                    + 'Page ' \
+                    + str(page_number) \
+                    + settings.get('FILE_EXTENSION')
+
+        f = open(file_name, "w")
+        f.write(str(tag))
+        f.close()
 
 

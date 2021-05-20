@@ -1,4 +1,4 @@
-# Scrapy settings for extracteverifiedemployer project
+# Scrapy settings for extract project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -7,14 +7,14 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'extracteverifiedemployer'
+BOT_NAME = 'extract'
 
-SPIDER_MODULES = ['extracteverifiedemployer.spiders']
-NEWSPIDER_MODULE = 'extracteverifiedemployer.spiders'
+SPIDER_MODULES = ['extract.spiders']
+NEWSPIDER_MODULE = 'extract.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'extracteverifiedemployer (+http://www.yourdomain.com)'
+#USER_AGENT = 'extract (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -45,13 +45,13 @@ ROBOTSTXT_OBEY = True
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'extracteverifiedemployer.middlewares.ExtracteverifiedemployerSpiderMiddleware': 543,
+#    'extract.middlewares.extractSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'extracteverifiedemployer.middlewares.ExtracteverifiedemployerDownloaderMiddleware': 543,
+#    'extract.middlewares.extractDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -63,7 +63,7 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    'extracteverifiedemployer.pipelines.ExtracteverifiedemployerPipeline': 300,
+#    'extract.pipelines.extractPipeline': 300,
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -86,3 +86,6 @@ ROBOTSTXT_OBEY = True
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+FILE_PATH_TO_EXTRACTED_FILES = './../../data/raw/'
+FILE_EXTENSION = '.html'

@@ -8,6 +8,6 @@
 from itemadapter import ItemAdapter
 
 
-class ExtracteverifiedemployerPipeline:
+class extractPipeline:
     def process_item(self, item, spider):
         return item
