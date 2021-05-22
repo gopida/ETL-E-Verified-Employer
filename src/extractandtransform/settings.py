@@ -1,4 +1,4 @@
-# Scrapy settings for extract project
+# Scrapy settings for extractandtransform project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -7,14 +7,14 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'extract'
+BOT_NAME = 'extractandtransform'
 
-SPIDER_MODULES = ['extract.spiders']
-NEWSPIDER_MODULE = 'extract.spiders'
+SPIDER_MODULES = ['extractandtransform.spiders']
+NEWSPIDER_MODULE = 'extractandtransform.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'extract (+http://www.yourdomain.com)'
+#USER_AGENT = 'extractandtransform (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -45,13 +45,13 @@ ROBOTSTXT_OBEY = True
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'extract.middlewares.extractSpiderMiddleware': 543,
+#    'extractandtransform.middlewares.extractandtransformSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'extract.middlewares.extractDownloaderMiddleware': 543,
+#    'extractandtransform.middlewares.extractandtransformDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -63,7 +63,7 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    'extract.pipelines.extractPipeline': 300,
+#    'extractandtransform.pipelines.extractandtransformPipeline': 300,
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -88,4 +88,5 @@ ROBOTSTXT_OBEY = True
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 FILE_PATH_TO_EXTRACTED_FILES = './../../data/raw/'
+FILE_PATH_TO_TRANSFORMED_FILES = './../../data/transformed/'
 FILE_EXTENSION = '.html'

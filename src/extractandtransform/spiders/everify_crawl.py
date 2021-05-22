@@ -28,9 +28,11 @@ class EverifyCrawlSpider(scrapy.Spider):
                         '&viewsreference[enabled_settings][title]=title&page='
                     )
     
-    header = {}
+    header = []
 
     total_records_count =  page_count = scraped_records_count = 0
+
+    items_per_page = 50
 
     last_update = ''
 
@@ -47,8 +49,9 @@ class EverifyCrawlSpider(scrapy.Spider):
         thead = table.find('thead')
         if thead:
             for i, th in enumerate(thead.find_all('th')):
-                self.header[i] = th.text.strip().lower().replace(' ', '_')
-
+                self.header.append(th.text.strip().lower().replace(' ', '_'))
+            header_file = settings.get('FILE_PATH_TO_EXTRACTED_FILES') + 'header.csv'
+            self.save_to_file(header_file, ','.join(self.header))
         yield scrapy.Request(url=response.url, callback=self.scrap_page)
 
 
@@ -58,38 +61,13 @@ class EverifyCrawlSpider(scrapy.Spider):
             content = BeautifulSoup(response.body, 'html.parser')
             table = content.find('table')
             self.save_extracted_data_to_file(self.page_count, table)
-            data = self.process_content(content)
+            # data = self.process_content(content)
             # print(json.dumps(data, indent=4))
 
-            self.scraped_records_count += len(data)
-            print(self.scraped_records_count, self.total_records_count)
+            self.scraped_records_count += self.items_per_page
             if self.scraped_records_count < self.total_records_count:
                 self.page_count += 1
                 yield scrapy.Request(url=self.pagination_url + str(self.page_count), callback=self.scrap_page)
-
-
-    def process_content(self, content):
-        
-        table = content.find('table')
-
-        # Extracting the table rows/content/data
-        data = []
-        tbody = table.find('tbody')
-        rows = tbody.find_all('tr')
-        for row in rows:
-            cells = row.find_all("td")
-            if self.header:
-                items = {}
-                for index in self.header:
-                    items[self.header[index]] = cells[index].text.strip()
-            else:
-                items = []
-                for index in cells:
-                    items.append(index.text.strip())
-
-            data.append(items)
-        return data
-
 
     def save_extracted_data_to_file(self, page_number, tag):
         
@@ -98,8 +76,11 @@ class EverifyCrawlSpider(scrapy.Spider):
                     + str(page_number) \
                     + settings.get('FILE_EXTENSION')
 
-        f = open(file_name, "w")
-        f.write(str(tag))
+        self.save_to_file(file_name, str(tag))
+
+    def save_to_file(self, file_name, data):
+        f = open(file_name, 'w')
+        f.write(data)
         f.close()
 
 
