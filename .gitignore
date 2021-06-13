@@ -133,4 +133,5 @@ data/raw/*
 !data/raw/.gitkeep
 data/transformed/*
 !data/transformed/.gitkeep
+src/load/.env"
 
