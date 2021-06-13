@@ -7,3 +7,4 @@
   ## This database will be used for upcoming projects. 
     1. Public API to check if the employer is E-Verified using REST.
     2. Analystics on employer list
+    3. Create chrome extension to tag employers
