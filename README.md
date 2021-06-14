@@ -1,7 +1,7 @@
 # ETL Project
   Building a database of E-verified employer list by scrapping data from e-verify portal. 
   ## Enhancement
-    1. Add MangoDB to store the data.
+    1. Add MongoDB to store the data.
     2. Build Airflow dags to automate the ETL process. 
     
   ## This database will be used for upcoming projects. 
