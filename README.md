@@ -5,6 +5,6 @@
     2. Build Airflow dags to automate the ETL process. 
     
   ## This database will be used for upcoming projects. 
-    1. Public API to check if the employer is E-Verified using REST.
+    1. Public API to check if the employer is E-Verified using REST/GraphQL
     2. Analystics on employer list
-    3. Create chrome extension to tag employers
+    3. Create chrome extension to tag employers in sites like LinkedIn, Glassdoor and other such websites so that its easy for F1 OPT students to pursue only E-Verified employer(as per USCIS)
