@@ -1,5 +1,6 @@
 from pathlib import Path
 import os
+import re
 from bs4 import BeautifulSoup, Tag
 import json
 from scrapy.utils.project import get_project_settings
@@ -25,14 +26,17 @@ class Transform():
         rows = tbody.find_all('tr')
         for row in rows:
             cells = row.find_all("td")
-            if self.header:
-                items = {}
-                for index in self.headers:
+            # if self.header:
+            items = {}
+            for index in self.headers:
+                if self.headers[index] in ['employer','doing_business_as']:
+                    items[self.headers[index]] = re.sub(r'[^a-zA-Z0-9 ]', '', cells[index].text.strip().lower())
+                else:
                     items[self.headers[index]] = cells[index].text.strip()
-            else:
-                items = []
-                for index in cells:
-                    items.append(index.text.strip())
+            # else:
+            #     items = []
+            #     for index in cells:
+            #         items.append(index.text.strip())
 
             data.append(items)
         return data
